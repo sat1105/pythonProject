@@ -1,0 +1,17 @@
+from pyspark.sql.types import *
+from pyspark.sql.functions import input_file_name, current_timestamp,col
+channel_schema = StructType([StructField('CHANNEL_ID', IntegerType(), True),
+                             StructField('CHANNEL_DESC', StringType(), True), 
+                             StructField('CHANNEL_CLASS', StringType(), True), 
+                             StructField('CHANNEL_CLASS_ID', IntegerType(), True), 
+                             StructField('CHANNEL_TOTAL', StringType(), True), 
+                             StructField('CHANNEL_TOTAL_ID', IntegerType(), True),
+                             StructField('bad_data', StringType(), True)])
+
+df = spark.read.format("csv").schema(channel_schema)\
+    .option("header", True).option("mode","PERMISSIVE")\
+    .options(columnNameOfCurruptRecord = "bad_data")\
+    .load("/FileStore/tables/table/channels06_12_2020_10_20_50.csv")\
+    .withColumn("FILE_NAME", input_file_name())\
+    .withColumn("Process_date",current_timestamp())
+display(df)
