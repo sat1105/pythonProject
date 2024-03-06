@@ -9,6 +9,7 @@ spark = SparkSession.builder.appName("parallelizedf").master("local").getOrCreat
 
 
 
+:wq!
 
 
 
