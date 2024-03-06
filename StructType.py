@@ -4,7 +4,7 @@ from pyspark.sql import SparkSession
 from pyspark.sql.functions import column
 import pyspark
 import sys
-import os
+
 from pyspark.sql.types import Row
 from pyspark.sql.types import *
 import datetime
